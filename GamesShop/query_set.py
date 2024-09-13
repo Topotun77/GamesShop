@@ -12,3 +12,17 @@ Game.objects.create(title='New Game', cost=199.999, size=3765, description='Оч
 Game.objects.get(id=1).buyer.set((1, 2, 3))
 Game.objects.get(id=2).buyer.set((1, 3))
 Game.objects.get(id=3).buyer.set((3,))
+
+Game.objects.all()
+Game.objects.create(title='Game', cost=1, size=3, description='test')
+Game.objects.get(title='Game').id
+Game.objects.get(id=6).delete()
+Game.objects.get(id=2).description
+Game.objects.filter(id=2).update(description='Танчики')
+Game.objects.filter(id=2)[0].description
+Game.objects.get(id=3).description
+game = Game.objects.get(title='New Game')
+game.description = 'Super new game'
+game.save()
+Game.objects.get(id=3).description
+
