@@ -1,3 +1,4 @@
+from django.core.paginator import Paginator
 from django.shortcuts import render
 from django.http import HttpResponse, HttpRequest
 from .forms import UserRegister
@@ -6,6 +7,7 @@ from .models import *
 # Create your views here.
 
 basket_: dict = {}
+cnt_choice = 5
 
 
 def get_basket_count():
@@ -19,12 +21,20 @@ def shop(request: HttpRequest):
             basket_[product] += 1
         else:
             basket_[product] = 1
-    print(basket_, len(basket_))
 
-    games = Game.objects.all()
+    global cnt_choice
+    cnt = request.GET.get('cnt', cnt_choice)
+    if int(cnt) == 0:
+        cnt = cnt_choice
+    cnt_choice = cnt
+    games = Game.objects.all().order_by('cost')
+    paginator = Paginator(games, cnt)
+    page_num = request.GET.get('page')
+    page_obj = paginator.get_page(page_num)
     context = {
         'items': games,
         'basket_len': get_basket_count(),
+        'page_obj': page_obj,
     }
     return render(request, template_name='shop.html', context=context)
 
@@ -39,21 +49,6 @@ def basket(request: HttpRequest):
         'basket_': basket_,
     }
     return render(request, template_name='basket.html', context=context)
-
-
-# class User():
-#     def __init__(self, username, password, age, subscribe):
-#         self.username = username
-#         self.password = password
-#         self.age = age
-#         self.subscribe = subscribe
-#
-#
-# users = [
-#     User('Alex', '12345678', 22, False),
-#     User('Pasha', 'Da$f8k@a8n!Rx~54Bzs*3}a', 39, False),
-#     User('Rosa', '111', 51, True),
-# ]
 
 
 def check_field(username, password, repeat_password, age, subscribe) -> dict:
