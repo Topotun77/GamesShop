@@ -1,0 +1,43 @@
+{% extends "menu.html" %}
+{% block title %}
+    {{ block.super }} - Магазин
+{% endblock %}
+
+{% block pagename %}
+    Игры
+{% endblock %}
+
+{% block content %}
+    {{ block.super }}
+<!--    <style>-->
+<!--    table, th, td {-->
+<!--        border: 1px solid grey;-->
+<!--        border-collapse: separate;-->
+<!--        border-spacing: 10px;}-->
+<!--    </style>-->
+    <ul>
+    <form method="post">
+    {% csrf_token %}
+    <table class="table_frame">
+        <tbody>
+        {% for itm in items %}
+        <tr class="table_frame">
+            <th class="table_frame td_frame" >
+                <h3 class="blue-text"> {{itm}} </h3>
+                <h3> {{itm.description}} </h3>
+            </th>
+            <th class="table_frame td_frame">
+                <h3>Стоимость: {{itm.cost}}</h3>
+            </th>
+            <th class="table_frame td_frame">
+                <button onclick="return confirm('А вам оно надо?');" type="submit" name="product" value="{{itm}}">
+                    Купить
+                </button>
+            </th>
+        </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+    </form>
+    </ul>
+{% endblock %}

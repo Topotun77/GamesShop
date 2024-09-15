@@ -1,0 +1,31 @@
+{% extends "menu.html" %}
+{% block title %}
+    {{ block.super }} - Корзина
+{% endblock %}
+
+{% block pagename %}
+    Корзина
+{% endblock %}
+
+{% block content %}
+    {{ block.super }}
+    {% if basket_ %}
+        <form method="post">
+        {% csrf_token %}
+        {% for key, val in basket_.items %}
+            <h3><label>
+                <input type="checkbox" name="{{ key }}">
+                {{ key }} ({{ val }} шт.)
+            </label></h3>
+        {% endfor %}
+
+            <button onclick="return confirm('Уверены?');" type="submit">
+                <h3>Оплатить покупку</h3>
+            </button>
+        </form>
+    {% else %}
+        <h2><font color="red">Извините, Ваша корзина пуста.</font>
+        <br>Возможно, Вы плохо жали на кнопки, попробуйте еще раз. Удачи! 🍀
+        </h2>
+    {% endif %}
+{% endblock %}

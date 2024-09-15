@@ -20,12 +20,6 @@ class BuyerAdmin(admin.ModelAdmin):
 @admin.register(Game)
 class GameAdmin(admin.ModelAdmin):
     list_display = ('title', 'description', 'cost', 'age_limited')
-    # fields = [
-    #     ('title', 'age_limited'),
-    #     'description',
-    #     ('cost', 'size'),
-    #     'buyer'
-    # ]
     fieldsets = (
         ('Description', {
             'fields': (('title', 'age_limited'),

@@ -1,0 +1,37 @@
+{% extends "menu.html" %}
+{% block title %}
+    {{ block.super }} - Магазин
+{% endblock %}
+
+{% block pagename %}
+    Игры
+{% endblock %}
+
+{% block content %}
+    {{ block.super }}
+        {% include 'paginator.html' %}
+    <form method="post">
+    {% csrf_token %}
+    <table class="table_frame">
+        <tbody>
+        {% for itm in page_obj %}
+        <tr class="table_frame">
+            <th class="table_frame td_frame" >
+                <h2 class="blue-text"> {{itm}} </h2>
+                <h3> {{itm.description}} </h3>
+            </th>
+            <th class="table_frame td_frame">
+                <h3> Стоимость:<span class="red-text"> {{itm.cost}}</span></h3>
+            </th>
+            <th class="table_frame td_frame">
+                <button onclick="return confirm('А вам оно надо?');" type="submit" name="product" value="{{itm}}">
+                    Купить
+                </button>
+            </th>
+        </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+    </form>
+        {% include 'paginator.html' %}
+{% endblock %}

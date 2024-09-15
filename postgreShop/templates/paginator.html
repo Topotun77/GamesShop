@@ -1,0 +1,53 @@
+<form method="get" action="/shop/">
+<nav aria-label="Панель навигации">
+  <ul>
+    {% if page_obj.has_other_pages %}
+      {% if page_obj.has_previous %}
+        <li class="inline-block">
+          <a href="?page={{ page_obj.previous_page_number }}" aria-label="Предыдущая страница">
+            <span class="big_font padding_font"> << </span>
+          </a>
+        </li>
+      {% else %}
+        <li class="inline-block"><span  class="big_font padding_font"> << </span></li>
+      {% endif %}
+
+      {% for i in page_obj.paginator.page_range %}
+        {% if page_obj.number == i %}
+          <li class="inline-block">
+            <span class="padding_font super_big_font"><b> {{ i }} </b></span>
+          </li>
+        {% else %}
+          <li class="inline-block">
+            <a href="?page={{ i }}">
+              <span class="big_font padding_font"> {{ i }} </span>
+            </a>
+          </li>
+        {% endif %}
+      {% endfor %}
+
+      {% if page_obj.has_next %}
+        <li class="inline-block">
+          <a href="?page={{ page_obj.next_page_number }}" aria-label="Следующая страница">
+            <span class="big_font padding_font"> >> </span>
+          </a>
+        </li>
+      {% else %}
+        <li class="inline-block"><span class="big_font padding_font"> >> </span></li>
+      {% endif %}
+    <b class="big_font padding_font inline-block">|</b>
+    {% endif %}
+    <span class="big_font padding_font inline-block">Строк:</span>
+      <select class="big_font" id="cnt" name="cnt">
+        <option value="0"></option>
+        <option value="3">3</option>
+        <option value="5">5</option>
+        <option value="10">10</option>
+        <option value="20">20</option>
+        <option value="50">50</option>
+        <option value="100">100</option>
+      </select>
+    <button>OK</button>
+  </ul>
+</nav>
+</form>
