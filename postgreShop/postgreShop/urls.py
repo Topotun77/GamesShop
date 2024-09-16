@@ -27,4 +27,5 @@ urlpatterns = [
     path('django_sign_up/', sign_up_by_django),
     path('register/', sign_up_by_html),
     path('reg/', sign_up_url),
+    path('login/', login),
 ]

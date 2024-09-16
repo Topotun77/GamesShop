@@ -9,18 +9,24 @@
 
 {% block content %}
     {{ block.super }}
+    <h3 class="red-text">
+        {{ message }}
+    </h3>
     {% if basket_ %}
         <form method="post">
         {% csrf_token %}
         {% for key, val in basket_.items %}
             <h3><label>
-                <input type="checkbox" name="{{ key }}">
+                <input type="checkbox" name="{{ key }}" value="{{ key }}">
                 {{ key }} ({{ val }} шт.)
             </label></h3>
         {% endfor %}
 
-            <button onclick="return confirm('Уверены?');" type="submit">
+            <button onclick="return confirm('Уверены?');" type="submit" name="act" value="bay">
                 <h3>Оплатить покупку</h3>
+            </button>
+            <button onclick="return confirm('Уверены?');" type="submit" name="act" value="del">
+                <h3>Удалить из корзины</h3>
             </button>
         </form>
     {% else %}

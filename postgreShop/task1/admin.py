@@ -11,10 +11,11 @@ from .models import *
 class BuyerAdmin(admin.ModelAdmin):
     list_display = ('name', 'balance', 'age')
     fields = [
-        'name',
+        ('name', 'password'),
         ('balance', 'age'),
     ]
     search_fields = ('name', 'balance', 'age')
+    list_filter = ('balance',)
 
 
 @admin.register(Game)

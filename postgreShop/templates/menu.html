@@ -13,26 +13,48 @@
 <body>
     <header>
             <div>
+                {% if user_login %}
+                <h2 class="align_right">
+                    <span class="small_font">
+                        Login as:
+                    </span>
+                    <a href="/login/">
+                        {{ user_login }} (
+                        {% if balance < 0 %}
+                        <span class="red-text">{{ balance }}</span>
+                        {% else %}
+                            {{ balance }}
+                        {% endif %}
+                        руб.)
+                    </a>
+                </h2>
+                {% endif %}
                 <h1>
                     {% block pagename %}
                         Главная страница
                     {% endblock %}
                 </h1>
+
             </div>
     </header>
     <hr>
     <nav>
         {% block menu %}
-            <h2><a href="/">Главная</a></h2>
-            <h2><a href="/shop/">Магазин</a></h2>
+            <div class="align_center">
+                <h2 class="inline-block padding_font"><a href="/">Главная</a></h2>
+                <h2 class="inline-block padding_font"><a href="/shop/">Магазин</a></h2>
+                <h2 class="inline-block padding_font">
+                    <a href="/basket/">Корзина</a>
+                    {% if basket_len %}
+                    ({{basket_len}})
+                    {% endif %}
+                </h2>
+            </div>
             <h2>
-                <a href="/basket/">Корзина</a>
-                {% if basket_len %}
-                ({{basket_len}})
-                {% endif %}
+                <a href="/login/">Вход/Выход</a> |
+                <a href="/register/">Регистрация</a> |
+                <a href="/django_sign_up/">Регистрация через формы</a>
             </h2>
-            <h2><a href="/register/">Регистрация</a> |
-                <a href="/django_sign_up/">Регистрация через формы</a></h2>
         {% endblock %}
     </nav>
     <nav>
