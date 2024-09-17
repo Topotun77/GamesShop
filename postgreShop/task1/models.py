@@ -21,3 +21,22 @@ class Game(models.Model):
 
     def __str__(self):
         return self.title
+
+
+class BasketItem():
+    def __init__(self, title: str, cost: float, age_limited: bool = False, count: int = 1):
+        self.title = title
+        self.checked = ''
+        self.sum = 0
+        self.cost = cost
+        self.count = count
+        self.age_limited = age_limited
+
+
+    def __str__(self):
+        return self.title
+
+    def __setattr__(self, key, value):
+        self.__dict__[key] = value
+        if key == 'count' or key == 'checked':
+            self.sum = self.count * self.cost if self.checked == 'checked' else 0
