@@ -49,7 +49,7 @@ def basket(request: HttpRequest):
         if act == 'del':
             del_basket(bay_list)
             bsk_list_ = get_bsk_list()
-            bsk_sum = basket_sum(bsk_list_)
+            # bsk_sum = basket_sum(bsk_list_)
         elif act == 'bay':
             if user_login:
                 if user_login.balance - bsk_sum > 0:
@@ -64,7 +64,7 @@ def basket(request: HttpRequest):
                 context = {**context, 'message': "Для оплаты покупки, пожалуйста, войдите в свой аккаунт"}
         else:
             pass
-
+    bsk_sum = basket_sum(get_bsk_list())
     context['basket_'] = bsk_list
     context['basket_sum'] = bsk_sum
     get_user_login()

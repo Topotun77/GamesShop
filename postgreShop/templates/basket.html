@@ -41,6 +41,9 @@
                     <input type="checkbox" name="{{ game.title }}" value="{{ game.title }}"
                            onclick="document.getElementById('myForm').submit();" {{ game.checked }}>
                     {{ game.title }}
+                    {% if game.age_limited %}
+                        (18+)
+                    {% endif %}
                     </label>
                 </h3>
                 </th>

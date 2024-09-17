@@ -39,8 +39,8 @@ def basket_sum(lst: list[BasketItem]) -> float:
     """
     sum = 0
     for item in lst:
-        if item.checked == 'checked':
-            sum += item.count * item.cost
+        # if item.checked == 'checked':
+        sum += item.sum
     return sum
 
 
