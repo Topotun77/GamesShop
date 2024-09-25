@@ -1,0 +1,88 @@
+{% extends "menu.html" %}
+{% block title %}
+    {{ block.super }} - Корзина
+{% endblock %}
+
+{% block pagename %}
+    Корзина
+{% endblock %}
+
+{% block content %}
+    {{ block.super }}
+    <h3 class="red-text">
+        {{ message }}
+    </h3>
+    {% if basket_ %}
+        <form method="post" id="myForm">
+        {% csrf_token %}
+
+            <table class="table_frame">
+                <thead>
+                    <tr class="table_frame">
+                        <th class="table_frame td_frame align_left blue-text" >
+                            <h2>Наименование товара</h2>
+                        </th>
+                        <th class="table_frame td_frame align_left blue-text" >
+                            <h2>Цена</h2>
+                        </th>
+                        <th class="table_frame td_frame align_left blue-text" >
+                            <h2>Количество</h2>
+                        </th>
+                        <th class="table_frame td_frame align_left blue-text" >
+                            <h2>Сумма</h2>
+                        </th>
+                    </tr>
+                </thead>
+            <tbody>
+            {% for game in basket_ %}
+            <tr class="table_frame">
+                <th class="table_frame td_frame align_left" >
+                <h3><label>
+                    <input type="checkbox" name="{{ game.title }}" value="{{ game.title }}"
+                           onclick="document.getElementById('myForm').submit();" {{ game.checked }}>
+                    {{ game.title }}
+                    {% if game.age_limited %}
+                        (18+)
+                    {% endif %}
+                    </label>
+                </h3>
+                </th>
+                <th class="table_frame td_frame">
+                    <h3>{{ game.cost }} руб.</h3>
+                </th>
+                <th class="table_frame td_frame">
+                    <h3> {{ game.count }} шт.</h3>
+                </th>
+                <th class="table_frame td_frame">
+                    <h3>{{ game.sum }} руб.</h3>
+                </th>
+            </tr>
+            {% endfor %}
+            </tbody>
+            <tfoot class="table_frame">
+                <th class="table_frame td_frame" colspan="3">
+                    <h2 class="align_right">Итого:</h2>
+                </th>
+                <th class="table_frame td_frame">
+                    <h2 class="blue-text">{{basket_sum}} руб.</h2>
+                </th>
+            </tfoot>
+            </table>
+            <br>
+
+            <button type="submit" name="act" value="refresh">
+                <h3>Пересчитать корзину</h3>
+            </button>
+            <button onclick="return confirm('Уверены?');" type="submit" name="act" value="bay">
+                <h2 class="red-text">Оплатить покупку</h2>
+            </button>
+            <button onclick="return confirm('Уверены?');" type="submit" name="act" value="del">
+                <h3>Удалить из корзины</h3>
+            </button>
+        </form>
+    {% else %}
+        <h2><font color="red">Извините, Ваша корзина пуста.</font>
+        <br>Возможно, Вы плохо жали на кнопки, попробуйте еще раз. Удачи! 🍀
+        </h2>
+    {% endif %}
+{% endblock %}

@@ -1,0 +1,101 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>
+        {% block title %}
+            Магазин игрушек
+        {% endblock %}
+    </title>
+    {% if day_team %}
+      <link rel="stylesheet" type="text/css" href='{% static "style-w.css" %}'>
+    {% else %}
+      <link rel="stylesheet" type="text/css" href='{% static "style.css" %}'>
+    {% endif %}
+</head>
+<body>
+
+    <aside class="aside_left">
+        <form method="post">
+        {% csrf_token %}
+        <h2 class="align_left">
+            <a href="?day={{day_team}}">
+                {% if day_team %}
+                  <img src="/static/day.png" width="40">
+                {% else %}
+                  <img src="/static/night.png" width="40">
+                {% endif %}
+            </a>
+        </h2>
+        </form>
+    </aside>
+
+    <aside>
+        {% if user_login %}
+        <h2 class="align_right">
+            <span class="small_font">
+                Login as:
+            </span>
+            <a href="/login/">
+                {{ user_login }} (
+                {% if balance < 0 %}
+                <span class="red-text">{{ balance }}</span>
+                {% else %}
+                    {{ balance }}
+                {% endif %}
+                руб.)
+            </a>
+        </h2>
+        {% endif %}
+    </aside>
+
+    <header>
+            <div>
+                <h1>
+                    {% block pagename %}
+                        Главная страница
+                    {% endblock %}
+                </h1>
+
+            </div>
+    </header>
+    <hr>
+    <nav>
+        {% block menu %}
+            <div class="align_center">
+                <h2 class="inline-block padding_font"><a href="/">Главная</a></h2>
+                <h2 class="inline-block padding_font"><a href="/shop/">Магазин</a></h2>
+                <h2 class="inline-block padding_font">
+                    <a href="/basket/">Корзина</a>
+                    {% if basket_len %}
+                    ({{basket_len}})
+                    {% endif %}
+                </h2>
+                {% if user_login %}
+                    <h2 class="inline-block padding_font"><a href="/login/">Выход</a></h2>
+                {% else %}
+                    <h2 class="inline-block padding_font"><a href="/login/">Вход</a></h2>
+                    <h2 class="inline-block padding_font"><a href="/django_sign_up/">Регистрация</a></h2>
+                {% endif %}
+            </div>
+<!--            <h2>-->
+<!--                <a href="/register/">Регистрация</a> |-->
+<!--                <a href="/django_sign_up/">Регистрация через формы</a>-->
+<!--            </h2>-->
+        {% endblock %}
+    </nav>
+    <nav>
+        {% block content %}
+            <hr>
+        {% endblock %}
+    </nav>
+    <hr>
+    <h2>
+        Наш магазин игрушек всегда рад Вам!
+    </h2>
+    📩 Пишите нам на <a href="mailto:mail@mail.ru">почту</a>
+    <br>
+    ☎️ Звоните нам на телефон
+</body>
+</html>

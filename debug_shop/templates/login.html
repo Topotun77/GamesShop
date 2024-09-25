@@ -1,0 +1,55 @@
+{% extends "menu.html" %}
+{% block title %}
+    {{ block.super }} - Вход/Выход
+{% endblock %}
+
+{% block pagename %}
+    {% if user_login %}
+        Выход из системы
+    {% else %}
+        Вход в систему
+    {% endif %}
+{% endblock %}
+
+{% block content %}
+    {{ block.super }}
+    <h3 class="blue-text">
+        {{ message }}
+    </h3>
+    <h3 class="red-text">
+        {{ error_rus }}
+    </h3>
+    {% if user_login %}
+        <form method="post">
+            {% csrf_token %}
+            <h3> Пользователь {{ user_login }}
+                <button type="submit" name="logout" value="OK">Выход</button>
+            </h3>
+        </form>
+    {% endif %}
+
+    <form method="post">
+    {% csrf_token %}
+    <table>
+        <tbody>
+            <tr>
+                <th align="right">
+                    <label>Введите логин:</label>
+                </th>
+                <td>
+                    <input type="text" name="username" maxlength="30" required>
+                </td>
+            </tr>
+            <tr>
+                <th align="right">
+                    <label>Введите пароль:</label>
+                </th>
+                <td>
+                    <input type="password" name="password" required>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <button type="submit">Вход</button>
+    </form>
+{% endblock %}
