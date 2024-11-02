@@ -32,3 +32,21 @@ Game.objects.all()
 Game.objects.get(id=13)
 Game.objects.filter(cost='39.99')
 len(Game.objects.filter(cost='59.99'))
+
+for item in lst:
+    sum_ += item.cost * item.count
+    buyers = Game.objects.get(title=str(item)).buyer.filter()
+    buyer_lst = []
+    for buyer in buyers:
+        buyer_lst.append(buyer.id)
+    buyer_lst.append(user_login.id)
+    Game.objects.get(title=str(item)).buyer.set(tuple(buyer_lst))
+    # buyers.set(tuple(buyer_lst))
+    bsk_list.remove(item)
+
+buyers = Game.objects.get(title=str(item)).buyer.all()
+buyer_lst = []
+for buyer in buyers:
+    buyer_lst.append(buyer.id)
+buyer_lst.append(user_login.id)
+Game.objects.get(title=str(item)).buyer.set(tuple(buyer_lst))

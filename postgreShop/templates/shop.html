@@ -17,7 +17,12 @@
         {% for itm in page_obj %}
         <tr class="table_frame">
             <th class="table_frame td_frame" >
-                <h2 class="blue-text"> {{itm}} </h2>
+                <h2 class="blue-text">
+                    {{itm}}
+                    {% if itm.age_limited %}
+                        (18+)
+                    {% endif %}
+                </h2>
                 <h3> {{itm.description}} </h3>
             </th>
             <th class="table_frame td_frame">

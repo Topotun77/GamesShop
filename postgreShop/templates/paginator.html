@@ -1,4 +1,4 @@
-<form method="get" action="/shop/">
+<form method="get" action="/shop/" id="paginator">
 <nav aria-label="Панель навигации">
   <ul>
     {% if page_obj.has_other_pages %}
@@ -38,7 +38,8 @@
     <b class="big_font padding_font inline-block">|</b>
     {% endif %}
     <span class="big_font padding_font inline-block">Строк:</span>
-      <select class="big_font" id="cnt" name="cnt">
+      <select class="big_font" id="cnt" name="cnt"
+              onchange="document.getElementById('paginator').submit();">
         <option value="0"></option>
         <option value="3">3</option>
         <option value="5">5</option>
@@ -47,7 +48,7 @@
         <option value="50">50</option>
         <option value="100">100</option>
       </select>
-    <button>OK</button>
+<!--    <button>OK</button>-->
   </ul>
 </nav>
 </form>

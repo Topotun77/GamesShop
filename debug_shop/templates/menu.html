@@ -13,9 +13,9 @@
     {% else %}
       <link rel="stylesheet" type="text/css" href='{% static "style.css" %}'>
     {% endif %}
+
 </head>
 <body>
-
     <aside class="aside_left">
         <form method="post">
         {% csrf_token %}
@@ -35,7 +35,7 @@
         {% if user_login %}
         <h2 class="align_right">
             <span class="small_font">
-                Login as:
+                Logins as:
             </span>
             <a href="/login/">
                 {{ user_login }} (
@@ -60,7 +60,7 @@
 
             </div>
     </header>
-    <hr>
+    <br>
     <nav>
         {% block menu %}
             <div class="align_center">

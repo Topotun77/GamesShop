@@ -6,7 +6,7 @@ from django.http import HttpRequest
 bsk_list: list[BasketItem] = []
 cnt_choice = 5
 day_team = True
-user_login = None
+user_login: Buyer | None = None
 
 
 def get_day_team():
